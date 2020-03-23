@@ -26,6 +26,7 @@ public class ContextUtil {
         pref.edit().putString(EMAIL, email).apply();
 
 
+
     }
 
 //    getter
@@ -37,5 +38,6 @@ public class ContextUtil {
 //        저장된 값이 없다면, 빈칸으로 주도록.
         return pref.getString(EMAIL, "");
     }
+
 
 }

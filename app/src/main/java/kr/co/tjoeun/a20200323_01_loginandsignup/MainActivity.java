@@ -24,13 +24,24 @@ public class MainActivity extends BaseActivity {
     @Override
     public void setupEvents() {
 
-//        로그인 버튼을 누르면 => 입력되어있는 이메일 저장
+//        로그인 버튼을 누르면 => 아이디 저장이 체크되어 있다면
+//        =>입력되어있는 이메일 저장
+//        그렇지 않다면 => 이메일을 빈칸 "" 으로 저장
         binding.loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String inputEmail = binding.emailEdt.getText().toString();
+                //                체크박스에 체크가 되어있나?
+                if (binding.idCheckBox.isChecked()) {
 
-                ContextUtil.setEmail(mContext, inputEmail);
+//                    체크가 되어 있는 상황
+                    String inputEmail = binding.emailEdt.getText().toString();
+
+                    ContextUtil.setEmail(mContext, inputEmail);
+                }
+                else {
+//                    체크가 안된 상황
+                    ContextUtil.setEmail(mContext, "");
+                }
             }
         });
 
@@ -43,4 +54,6 @@ public class MainActivity extends BaseActivity {
         binding.emailEdt.setText(ContextUtil.getEmail(mContext));
 
     }
+
+
 }
