@@ -38,6 +38,7 @@ public class MainActivity extends BaseActivity {
                 Intent intent = new Intent(mContext, SignUpActivity.class);
                 startActivity(intent);
             }
+
         });
 
 //        체크박스에 체크가 될때 (변화가 있을때) 마다
