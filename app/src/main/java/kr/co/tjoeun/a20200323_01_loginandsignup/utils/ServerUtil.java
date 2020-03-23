@@ -27,6 +27,7 @@ public class ServerUtil {
     }
 
 //    서버 호스트 주소를 편하게 가져다 쓰려고 변수로 저장.
+//    http://http://tdd.team:5000/
     private static final String BASE_URL = "http://192.168.0.236:5000";
 
 //    로그인 요청 기능 메쏘드
@@ -58,6 +59,7 @@ public class ServerUtil {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
 //                연결 실패 처리
+                Log.e("서버연결실패","연결안됨!");
             }
 
             @Override
