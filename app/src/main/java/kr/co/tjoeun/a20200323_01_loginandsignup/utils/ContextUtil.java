@@ -27,4 +27,15 @@ public class ContextUtil {
 
 
     }
+
+//    getter
+    public static String getEmail(Context context) {
+//        메모장을 열어야 뭐라고 적혀있는지 확인 가능.
+        SharedPreferences pref = context.getSharedPreferences(prefName, Context.MODE_PRIVATE);
+
+//        EMAIL항목에 적혀있는 값을 확인해서 바로 리턴처리
+//        저장된 값이 없다면, 빈칸으로 주도록.
+        return pref.getString(EMAIL, "");
+    }
+
 }
