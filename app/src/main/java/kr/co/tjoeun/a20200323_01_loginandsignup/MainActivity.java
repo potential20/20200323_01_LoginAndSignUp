@@ -14,6 +14,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import kr.co.tjoeun.a20200323_01_loginandsignup.databinding.ActivityMainBinding;
+import kr.co.tjoeun.a20200323_01_loginandsignup.datas.User;
 import kr.co.tjoeun.a20200323_01_loginandsignup.utils.ContextUtil;
 import kr.co.tjoeun.a20200323_01_loginandsignup.utils.ServerUtil;
 
@@ -106,13 +107,15 @@ public class MainActivity extends BaseActivity {
 
 //                                로그인한 사람의 이름/ 폰번을 토스트로
 
-                                final String name = user.getString("name");
-                                final String phone = user.getString("phone");
+//                                final String name = user.getString("name");
+//                                final String phone = user.getString("phone");
+
+                                final User loginUser = User.getUserFromJson(user);
 
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        Toast.makeText(mContext, String.format("%s / %s",name,phone), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(mContext, String.format("%s / %s",loginUser.getName(),loginUser.getPhone()), Toast.LENGTH_SHORT).show();
                                     }
                                 });
 
