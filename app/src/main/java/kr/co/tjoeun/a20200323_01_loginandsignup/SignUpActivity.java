@@ -53,6 +53,19 @@ public class SignUpActivity extends BaseActivity {
                             int code = json.getInt("code");
 
                             if (code == 200) {
+//                                    회원가입 성공 케이스
+                                JSONObject data = json.getJSONObject("data");
+                                JSONObject user = data.getJSONObject("user");
+
+                                final String name = user.getString("name");
+
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(mContext, String.format("%s님 환영합니다.",name), Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+
 
                             }
                             else {
