@@ -66,7 +66,7 @@ public class MainActivity extends BaseActivity {
 
                 ServerUtil.postRequestLogin(mContext, inputEmail, inputPw, new ServerUtil.JsonResponseHandler() {
                     @Override
-                    public void onResponse(JSONObject json) ㅁ{
+                    public void onResponse(JSONObject json) {
 
                         Log.d("JSON내용-메인에서",json.toString());
                     }
