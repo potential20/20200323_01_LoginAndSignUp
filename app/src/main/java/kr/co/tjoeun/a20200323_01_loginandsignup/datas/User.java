@@ -22,7 +22,7 @@ public class User implements Serializable {
             user.loginId = object.getString("login_id");
             user.name = object.getString("name");
             user.phone = object.getString("phone");
-            user.memo = object.getString("momo");
+            user.memo = object.getString("memo");
         } catch (JSONException e) {
             e.printStackTrace();
         }
