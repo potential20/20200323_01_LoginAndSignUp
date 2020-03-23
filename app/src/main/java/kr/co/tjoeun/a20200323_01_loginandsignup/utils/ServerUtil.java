@@ -12,11 +12,14 @@ import java.io.IOException;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
+import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
 public class ServerUtil {
+    public static void getRequestMyInfo(Context mContext, JsonResponseHandler 내정보) {
+    }
 
 //    이론
 //    서버통신 주체? ServerUtil
@@ -151,9 +154,60 @@ public class ServerUtil {
             }
         });
 
+
     }
+    public static void getRequestInfo(Context context, final JsonResponseHandler handler) {
+
+//        클라이언트 역할 수행 변수 생성.
+        OkHttpClient client = new OkHttpClient();
+
+//        어느주소(호스트주소/기능주소)로 갈지? String변수로 저장.
+
+//        GET - 파라미터를 query에 담는다. => URL에 노출된다.
+//         => URL을 가공하면? 파라미터가 첨부된다.
+
+//        뼈대가 되는 주소 가공 변수 : 호스트주소/기능주소 연결해서 생성.
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(String.format("%s/my_info", BASE_URL)).newBuilder();
+//        urlBuilder.addEncodedQueryParameter("파라미터이름", "값");
+//        GET에서 query파라미터를 요구하면 윗 줄처럼 담아주자.
+
+//        파라미터들이 첨부된 urlBuilder를 이용해 => String으로 변환
+        String url = urlBuilder.build().toString();
+
+        Request request = new Request.Builder()
+                .url(url)
+                .header("X-Http-Token", ContextUtil.getUserToken(context))
+                .build(); // GET의 경우에는 메쏘드 지정 필요 없다. (제일 기본이라)
 
 
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                Log.e("서버연결실패", "연결안됨!");
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+
+                String body = response.body().string();
+
+                try {
+                    JSONObject json = new JSONObject(body);
+
+                    if (handler != null) {
+                        handler.onResponse(json);
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+
+
+
+    }
 
 
 

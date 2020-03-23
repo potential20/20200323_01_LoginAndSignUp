@@ -12,12 +12,14 @@
 
 
         <TextView
+            android:id="@+id/nameTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:text="이름 자리"/>
 
         <TextView
+            android:id="@+id/memoTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="16sp"
@@ -25,6 +27,7 @@
             android:layout_marginTop="10dp"/>
 
         <LinearLayout
+            android:id="@+id/phoneTxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -32,6 +35,7 @@
             android:layout_marginTop="30dp">
 
             <TextView
+                android:id="@+id/dialBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="연락처 자리"/>
