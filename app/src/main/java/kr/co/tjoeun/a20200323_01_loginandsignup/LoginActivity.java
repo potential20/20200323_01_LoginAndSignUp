@@ -1,7 +1,5 @@
 package kr.co.tjoeun.a20200323_01_loginandsignup;
 
-import androidx.databinding.DataBindingUtil;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,11 +7,12 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Toast;
 
+import androidx.databinding.DataBindingUtil;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import kr.co.tjoeun.a20200323_01_loginandsignup.databinding.ActivityLoginBinding;
-
 import kr.co.tjoeun.a20200323_01_loginandsignup.datas.User;
 import kr.co.tjoeun.a20200323_01_loginandsignup.utils.ContextUtil;
 import kr.co.tjoeun.a20200323_01_loginandsignup.utils.ServerUtil;
