@@ -102,7 +102,7 @@ public class LoginActivity extends BaseActivity {
 
                                 JSONObject data = json.getJSONObject("data");
                                 JSONObject user = data.getJSONObject("user");
-                                String token = data.getString("token");
+                                final String token = data.getString("token");
 
 //                                로그인한 사람의 이름/ 폰번을 토스트로
 
@@ -116,6 +116,13 @@ public class LoginActivity extends BaseActivity {
                                     public void run() {
                                         Toast.makeText(mContext, String.format("%s / %s",loginUser.getName(),loginUser.getPhone()), Toast.LENGTH_SHORT).show();
 
+//                                        따온 토큰을 SharedPreferences에 저장.
+//                                        => 로그인에 성공했다. + 내가 누군지 기록
+                                        ContextUtil.setUserToken(mContext, token);
+
+//                                        메인화면으로 진입 => 내 프로필 정보를 출력 => 저장된 토큰을 이용할 예정.
+                                        Intent intent = new Intent(mContext, MainActivity.class);
+                                        startActivity(intent);
 
                                     }
                                 });
@@ -130,8 +137,10 @@ public class LoginActivity extends BaseActivity {
                                     @Override
                                     public void run() {
                                         Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
+
+
                                     }
-                                });
+                               });
 
                             }
 
