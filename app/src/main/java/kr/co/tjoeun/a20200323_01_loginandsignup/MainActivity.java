@@ -9,6 +9,7 @@ import android.widget.CompoundButton;
 
 import kr.co.tjoeun.a20200323_01_loginandsignup.databinding.ActivityMainBinding;
 import kr.co.tjoeun.a20200323_01_loginandsignup.utils.ContextUtil;
+import kr.co.tjoeun.a20200323_01_loginandsignup.utils.ServerUtil;
 
 public class MainActivity extends BaseActivity {
 
@@ -56,6 +57,11 @@ public class MainActivity extends BaseActivity {
 //                    체크가 안된 상황
                     ContextUtil.setEmail(mContext, "");
                 }
+
+                String inputEmail = binding.emailEdt.getText().toString();
+                String inputPw = binding.pwEdt.getText().toString();
+
+                ServerUtil.postRequestLogin(mContext,inputEmail,inputPw,null);
             }
         });
 

@@ -47,6 +47,7 @@
                 android:text="Password"/>
 
             <EditText
+                android:id="@+id/pwEdt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="비밀번호 입력"
