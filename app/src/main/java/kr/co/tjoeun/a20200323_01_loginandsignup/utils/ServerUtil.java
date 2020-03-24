@@ -253,4 +253,59 @@ public class ServerUtil {
 
 
     }
-}
+    public static void postRequestWriteBlack(Context context, String phone, String title, String content,  final JsonResponseHandler handler) {
+
+        OkHttpClient client = new OkHttpClient();
+
+
+        String urlStr = String.format("%s/black_list", BASE_URL);
+
+
+        FormBody formData = new FormBody.Builder()
+                .add("title", title)
+                .add("phone_num", phone)
+                .add("content", content)
+                .build();
+
+//        어떤 메쏘드를 쓰는지?
+        Request request = new Request.Builder()
+                .url(urlStr)
+                .post(formData)
+                .header("X-Http-Token",ContextUtil.getUserToken(context))
+                .build();
+//                필요한 경우 헤더도 추가해야함
+
+
+//        건드릴 필요가 없는 부분.
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+//                연결 실패 처리
+                Log.e("서버연결실패", "연결안됨!");
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+//                연결 성공해서 응답이 돌아왔을때 => string()으로 변환.
+                String body = response.body().string();
+                Log.d("로그인응답", body);
+
+//                응답 내용을 JSON객체로 가공
+                try {
+//                    body의 String을 => JSONObject 형태로 변환
+//                    양식에 맞지 않는 내용이면, 앱이 터질 수 있으니
+//                    try / catch 로 감싸도록 처리.
+                    JSONObject json = new JSONObject(body);
+
+//                    이 JSON에 대한 분석은 화면단에 넘겨주자.
+                    if (handler != null) {
+                        handler.onResponse(json);
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+}}

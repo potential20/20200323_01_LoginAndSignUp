@@ -6,7 +6,53 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".EditBlackActivity"
+        android:padding="15dp"
         android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="신고할 폰번"/>
+
+        <EditText
+            android:id="@+id/phoneEdt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="phone"
+            android:hint="폰번 입력"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="제목"/>
+
+        <EditText
+            android:id="@+id/titleEdt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:hint="제목 입력"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="내용"
+            android:layout_marginTop="15dp"/>
+        <EditText
+            android:id="@+id/contentEdt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="내용 입력"
+            android:minLines="3"
+            android:gravity="top"/>
+
+        <Button
+            android:id="@+id/writeBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="작성하기"/>
 
     </LinearLayout>
 </layout>
