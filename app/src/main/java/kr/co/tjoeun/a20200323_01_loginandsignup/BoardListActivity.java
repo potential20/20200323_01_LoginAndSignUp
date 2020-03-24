@@ -11,6 +11,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import kr.co.tjoeun.a20200323_01_loginandsignup.databinding.ActivityBoardListBinding;
+import kr.co.tjoeun.a20200323_01_loginandsignup.datas.Black;
 import kr.co.tjoeun.a20200323_01_loginandsignup.utils.ServerUtil;
 
 public class BoardListActivity extends BaseActivity {
@@ -49,6 +50,8 @@ public class BoardListActivity extends BaseActivity {
 
                         for (int i=0 ; i < blackLists.length() ; i++) {
                             JSONObject bl = blackLists.getJSONObject(i);
+                            Black blackPost = Black.getBlackFromJson(bl);
+                            Log.d("블랙신고제목",blackPost.getTitle());
                         }
 
                     }
