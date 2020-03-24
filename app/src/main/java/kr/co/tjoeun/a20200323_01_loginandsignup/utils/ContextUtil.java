@@ -10,7 +10,7 @@ public class ContextUtil {
 
     //    항목명도 자동완성 지원할수 있도록 미리 변수화.
     private static final String EMAIL = "EMAIL";
-    private static final String ID_CHECK = "ID_CHECK";
+    private static final String AUTO_LOGIN_CHECK = "AUTO_LOGIN_CHECK";
     private static final String USER_TOKEN = "USER_TOKEN";
 
 //    해당 항목의 값을 저장(setter) / 조회(getter) 하는 메쏘드 두개.
@@ -40,14 +40,14 @@ public class ContextUtil {
         return pref.getString(EMAIL, "");
     }
 
-    public static void setIdCheck(Context context, boolean isCheck) {
+    public static void setAutoLoginCheck(Context context, boolean isCheck) {
         SharedPreferences pref = context.getSharedPreferences(prefName, Context.MODE_PRIVATE);
-        pref.edit().putBoolean(ID_CHECK, isCheck).apply();
+        pref.edit().putBoolean(AUTO_LOGIN_CHECK, isCheck).apply();
     }
 
-    public static boolean isIdCheck(Context context) {
+    public static boolean isAutoLoginCheck(Context context) {
         SharedPreferences pref = context.getSharedPreferences(prefName, Context.MODE_PRIVATE);
-        return pref.getBoolean(ID_CHECK, true);
+        return pref.getBoolean(AUTO_LOGIN_CHECK, true);
     }
 
 
