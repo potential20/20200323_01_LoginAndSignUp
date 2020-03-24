@@ -29,11 +29,11 @@ public class ServerUtil {
         void onResponse(JSONObject json);
     }
 
-//    서버 호스트 주소를 편하게 가져다 쓰려고 변수로 저장.
+    //    서버 호스트 주소를 편하게 가져다 쓰려고 변수로 저장.
 //    http://tdd.team:5000/api/docs
     private static final String BASE_URL = "http://172.30.1.29:5000";
 
-//    로그인 요청 기능 메쏘드
+    //    로그인 요청 기능 메쏘드
 //    파라미터 기본구조 : 어떤 화면에서? 어떤응답처리를를 할지? 변수로.
 //    파라미터 추가 : 서버로 전달할때 필요한 데이터들을 변수로.
     public static void postRequestLogin(Context context, String id, String pw, final JsonResponseHandler handler) {
@@ -44,7 +44,7 @@ public class ServerUtil {
 //        어느주소(호스트주소/기능주소)로 갈지? String변수로 저장.
 //        192.?.?.?:5000/auth
 
-        String urlStr = String.format("%s/auth",BASE_URL);
+        String urlStr = String.format("%s/auth", BASE_URL);
 
 //        서버로 들고갈 파라미터를 담아줘야함.
         FormBody formData = new FormBody.Builder()
@@ -62,14 +62,14 @@ public class ServerUtil {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
 //                연결 실패 처리
-                Log.e("서버연결실패","연결안됨!");
+                Log.e("서버연결실패", "연결안됨!");
             }
 
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
 //                연결 성공해서 응답이 돌아왔을때 => string()으로 변환.
                 String body = response.body().string();
-                Log.d("로그인응답",body);
+                Log.d("로그인응답", body);
 
 //                응답 내용을 JSON객체로 가공
                 try {
@@ -93,7 +93,7 @@ public class ServerUtil {
     }
 
 
-//    파라미터 기초 구조 : 어떤화면 context / 무슨일 handler
+    //    파라미터 기초 구조 : 어떤화면 context / 무슨일 handler
 //    가운데 추가 고려 : 화면에서 어떤 데이터를 받아서 => 서버로 전달?
     public static void postRequestSignUp(Context context, String id, String pw, String name, String phoneNum, final JsonResponseHandler handler) {
 
@@ -103,14 +103,14 @@ public class ServerUtil {
 //        어느주소(호스트주소/기능주소)로 갈지? String변수로 저장.
 
 
-        String urlStr = String.format("%s/auth",BASE_URL);
+        String urlStr = String.format("%s/auth", BASE_URL);
 
 //        어떤 데이터를 담아야 하는지? API 명세 참조.
         FormBody formData = new FormBody.Builder()
                 .add("login_id", id)
                 .add("password", pw)
-                .add("name",name)
-                .add("phone",phoneNum)
+                .add("name", name)
+                .add("phone", phoneNum)
                 .build();
 
 //        어떤 메쏘드를 쓰는지?
@@ -126,14 +126,14 @@ public class ServerUtil {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
 //                연결 실패 처리
-                Log.e("서버연결실패","연결안됨!");
+                Log.e("서버연결실패", "연결안됨!");
             }
 
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
 //                연결 성공해서 응답이 돌아왔을때 => string()으로 변환.
                 String body = response.body().string();
-                Log.d("로그인응답",body);
+                Log.d("로그인응답", body);
 
 //                응답 내용을 JSON객체로 가공
                 try {
@@ -156,6 +156,7 @@ public class ServerUtil {
 
 
     }
+
     public static void getRequestInfo(Context context, final JsonResponseHandler handler) {
 
 //        클라이언트 역할 수행 변수 생성.
@@ -206,9 +207,50 @@ public class ServerUtil {
         });
 
 
-
     }
 
+    public static void getRequestBlackList(Context context, final JsonResponseHandler handler) {
 
 
+        OkHttpClient client = new OkHttpClient();
+
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(String.format("%s/black_list", BASE_URL)).newBuilder();
+//        urlBuilder.addEncodedQueryParameter("파라미터이름", "값");
+
+
+        String url = urlBuilder.build().toString();
+
+        Request request = new Request.Builder()
+                .url(url)
+                .header("X-Http-Token", ContextUtil.getUserToken(context))
+                .build(); // GET의 경우에는 메쏘드 지정 필요 없다. (제일 기본이라)
+
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                Log.e("서버연결실패", "연결안됨!");
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+
+                String body = response.body().string();
+
+                try {
+                    JSONObject json = new JSONObject(body);
+
+                    if (handler != null) {
+                        handler.onResponse(json);
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+
+
+    }
 }
