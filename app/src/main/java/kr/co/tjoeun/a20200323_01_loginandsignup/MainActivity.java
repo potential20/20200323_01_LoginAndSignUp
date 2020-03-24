@@ -32,6 +32,13 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void setupEvents() {
+        binding.goToBoardBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext,BoardListActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
