@@ -13,6 +13,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import kr.co.tjoeun.a20200323_01_loginandsignup.adapters.BlackAdapter;
 import kr.co.tjoeun.a20200323_01_loginandsignup.databinding.ActivityBoardListBinding;
 import kr.co.tjoeun.a20200323_01_loginandsignup.datas.Black;
 import kr.co.tjoeun.a20200323_01_loginandsignup.utils.ServerUtil;
@@ -20,6 +21,7 @@ import kr.co.tjoeun.a20200323_01_loginandsignup.utils.ServerUtil;
 public class BoardListActivity extends BaseActivity {
 
     List<Black> blacks = new ArrayList<>();
+    BlackAdapter blackAdapter = null;
 
     ActivityBoardListBinding binding = null;
 
@@ -39,6 +41,9 @@ public class BoardListActivity extends BaseActivity {
 
     @Override
     public void setValues() {
+
+        blackAdapter = new BlackAdapter(mContext, R.layout.black_list_item,blacks);
+        binding.postListView.setAdapter(blackAdapter);
 
         ServerUtil.getRequestBlackList(mContext, new ServerUtil.JsonResponseHandler() {
             @Override
@@ -63,6 +68,13 @@ public class BoardListActivity extends BaseActivity {
                         }
 
 //                        모두 담긴 게시글들 => 어댑터가 새로고침.
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                blackAdapter.notifyDataSetChanged();
+                            }
+                        });
+
 
                     }
 
